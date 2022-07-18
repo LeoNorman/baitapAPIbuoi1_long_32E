@@ -150,25 +150,47 @@ document.querySelector('#update').onclick = function () {
 
 }
 
-//tìm kiểm sản phẩm
+// tìm kiểm sản phẩm
 
-// document.querySelector('#btnTimKiem').onclick = function () {
-//     // alert('đang tìm kiếm!');
-//     var spSearch = Product();
-//     spSearch.name = document.querySelector('#nhapNameSP').value;
-//     var promise = axios({
-//         url:'http://svcy.myclass.vn/api/Product/SearchByName?name='+spSearch.name,
-//         method:'GET',
-//         data:spSearch
-//     });
+document.querySelector('#btnTimKiem').onclick = function () {
+    // alert('đang tìm kiếm!');
+    var arrProduct = Product();
+    console.log(arrProduct);
+    var searchName = document.querySelector('#nhapNameSP').value;
+    var promise = axios({
+        url:'http://svcy.myclass.vn/api/Product/SearchByName?name='+ dataBE(searchName),
+        method:'GET',
+        data:dataBE(searchName)
+    });
 
-//     promise.then(function(result){
-//         //Thành công
-//         console.log(result.data);
-//         layDanhSachSanPhamApi(); //Load lại table
-//     });
+    promise.then(function(result){
+        //Thành công
+        console.log(result.data);
+        renderSPbyname(arrProduct,searchName) //Load lại table
+    });
 
-//     promise.catch(function(err) {
-//         console.log(err);
-//     })
-// }
+    promise.catch(function(err) {
+        console.log(err);
+    })
+}
+
+function renderSPbyname(arrSP,searchByName) {
+    var newSP = [];
+    var newArr = arrSP;
+    for (var index = 0; index < newArr.length; index++) {
+        var object = newArr[index];
+        var productName = object.name
+        if (productName === searchByName) {
+            newSP.push(newArr[index])
+        }
+    }
+    renderSanPham(newSP);
+}
+
+function dataBE (inputname) {
+    var mystring = inputname;
+    var arrayStrig = mystring.split(" ");
+    var newString = arrayStrig.join('%20');
+    return newString
+}
+ 
