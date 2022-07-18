@@ -11,10 +11,10 @@ function renderSanPham(arrProduct) { //param : input :arrProduct
         html += `
             <tr>
                 <td>${sp.id}</td>
-                <td><img src='${sp.image}' alt="Product image"></td>
+                <td><img style="width: 100%" src='${sp.img}' alt="Product image"></td>
                 <td>${sp.name}</td>
                 <td>${sp.price}</td>
-                <td>${sp.desc}</td>
+                <td>${sp.description}</td>
                 <td>${sp.type}</td>
                 <td>
                     <button class="btn btn-danger mr-2" onclick="xoaSanPham('${sp.id}')"><i class="fa-solid fa-trash-can"></i></button>
@@ -56,10 +56,10 @@ document.querySelector('#create').onclick = function () {
     sp.id = document.querySelector('#productID').value;
     sp.name = document.querySelector('#productName').value;
     sp.price = document.querySelector('#productPrice').value;
-    sp.image = document.querySelector('#productImage').value;
-    sp.productType = document.querySelector('#productType').value;
-    sp.desc = document.querySelector('#productDesc').value;
-    // console.log(sp);
+    sp.img = document.querySelector('#productImage').value;
+    sp.type = document.querySelector('#productType').value;
+    sp.description = document.querySelector('#productDesc').value;
+    //  console.log(sp);
 
     //Gọi api đưa dữ liệu về backend
     var promise = axios ({
@@ -110,9 +110,9 @@ function chinhSua(id) {
         document.querySelector('#productID').value = sp.id;
         document.querySelector('#productName').value = sp.name;
         document.querySelector('#productPrice').value = sp.price;
-        document.querySelector('#productImage').value = sp.image;
-        document.querySelector('#productType').value = sp.productType;
-        document.querySelector('#productDesc').value = sp.desc;
+        document.querySelector('#productImage').value = sp.img;
+        document.querySelector('#productType').value = sp.type;
+        document.querySelector('#productDesc').value = sp.description;
     });
     //Thất bại
     promise.catch(function(error) {
@@ -128,9 +128,9 @@ document.querySelector('#update').onclick = function () {
     spUpdate.id = document.querySelector('#productID').value;
     spUpdate.name = document.querySelector('#productName').value;
     spUpdate.price = document.querySelector('#productPrice').value;
-    spUpdate.image = document.querySelector('#productImage').value;
-    spUpdate.productType = document.querySelector('#productType').value;
-    spUpdate.desc = document.querySelector('#productDesc').value;
+    spUpdate.img = document.querySelector('#productImage').value;
+    spUpdate.type = document.querySelector('#productType').value;
+    spUpdate.description = document.querySelector('#productDesc').value;
     //Call api
     var promise = axios({
         url:'http://svcy.myclass.vn/api/Product/UpdateProduct/'+spUpdate.id,
@@ -150,6 +150,25 @@ document.querySelector('#update').onclick = function () {
 
 }
 
-document.querySelector('#btnTimKiem').onclick = function () {
-    alert('đang tìm kiếm!');
-}
+//tìm kiểm sản phẩm
+
+// document.querySelector('#btnTimKiem').onclick = function () {
+//     // alert('đang tìm kiếm!');
+//     var spSearch = Product();
+//     spSearch.name = document.querySelector('#nhapNameSP').value;
+//     var promise = axios({
+//         url:'http://svcy.myclass.vn/api/Product/SearchByName?name='+spSearch.name,
+//         method:'GET',
+//         data:spSearch
+//     });
+
+//     promise.then(function(result){
+//         //Thành công
+//         console.log(result.data);
+//         layDanhSachSanPhamApi(); //Load lại table
+//     });
+
+//     promise.catch(function(err) {
+//         console.log(err);
+//     })
+// }
