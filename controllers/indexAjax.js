@@ -154,19 +154,19 @@ document.querySelector('#update').onclick = function () {
 
 document.querySelector('#btnTimKiem').onclick = function () {
     // alert('đang tìm kiếm!');
-    var arrProduct = Product();
-    console.log(arrProduct);
+    // var arrProduct = Product();
     var searchName = document.querySelector('#nhapNameSP').value;
     var promise = axios({
-        url:'http://svcy.myclass.vn/api/Product/SearchByName?name='+ dataBE(searchName),
+        url:'http://svcy.myclass.vn/api/Product/SearchByName?name='+ searchName,
         method:'GET',
-        data:dataBE(searchName)
+        data:searchName
     });
 
     promise.then(function(result){
         //Thành công
         console.log(result.data);
-        renderSPbyname(arrProduct,searchName) //Load lại table
+        // renderSPbyname(arrProduct,searchName);
+        renderSanPham(result.data) //Load lại table
     });
 
     promise.catch(function(err) {
@@ -174,23 +174,23 @@ document.querySelector('#btnTimKiem').onclick = function () {
     })
 }
 
-function renderSPbyname(arrSP,searchByName) {
-    var newSP = [];
-    var newArr = arrSP;
-    for (var index = 0; index < newArr.length; index++) {
-        var object = newArr[index];
-        var productName = object.name
-        if (productName === searchByName) {
-            newSP.push(newArr[index])
-        }
-    }
-    renderSanPham(newSP);
-}
+// function renderSPbyname(arrSP,searchByName) {
+//     var newSP = [];
+//     var newArr = arrSP;
+//     for (var index = 0; index < newArr.length; index++) {
+//         var object = newArr[index];
+//         var productName = object.name
+//         if (productName = searchByName) {
+//             newSP.push(newArr[index])
+//         }
+//     }
+//     renderSanPham(newSP);
+// }
 
-function dataBE (inputname) {
-    var mystring = inputname;
-    var arrayStrig = mystring.split(" ");
-    var newString = arrayStrig.join('%20');
-    return newString
-}
+// function dataBE (inputname) {
+//     var mystring = inputname;
+//     var arrayStrig = mystring.split(" ");
+//     var newString = arrayStrig.join('%20');
+//     return newString
+// }
  
